@@ -5,6 +5,7 @@ import random
 import numpy as np
 from soul import Soul
 from env import Light,Positon
+from Object import V
 HIGHT=600
 WIDTH=1200
 
@@ -16,7 +17,9 @@ LIGHTUPDATA=2556
 
 agent_sprite=pygame.sprite.Group()
 clock=pygame.time.Clock()
-light=Light("light")
+light=Light("light",WIDTH,HIGHT)
+space=Positon("space",WIDTH,HIGHT)
+env={light.name:light,space.name:space}
 def main():
     win=pygame.display.set_mode((WIDTH,HIGHT))
     pygame.display.set_caption("模拟文明")
@@ -24,7 +27,7 @@ def main():
     pygame.display.update()
     pygame.time.set_timer(LIGHTUPDATA,1000)
     for i in range(1000):
-        agent_sprite.add(V(Soul(range(16),range(5)),random.randint(0,WIDTH-12)+5,random.randint(0,HIGHT-12)+5,env={light.name:light}))
+        agent_sprite.add(V(Soul(range(16),range(5),None),env,random.randint(0,WIDTH-12)+5,random.randint(0,HIGHT-12)+5))
     groups=[agent_sprite]
     while True:
         clock.tick(144)
