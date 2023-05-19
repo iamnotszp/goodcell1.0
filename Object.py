@@ -81,7 +81,7 @@ class V(pygame.sprite.Sprite):
 
     def produce(self):
         light=self._getenv("light").env
-        self.energe+=light[self.rect.x][self.rect.y]*200
+        self.energe+=light[self.rect.x][self.rect.y]*240
         light[self.rect.x][self.rect.y]-=0.01  #光照每50tick回复一次
     def move(self,dx,dy):
         self.rect.x+=dx

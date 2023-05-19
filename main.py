@@ -62,10 +62,18 @@ def main():
         if clock.get_time()%50==0:
             print("更新光照")
             light.update()
+        if (clock.get_time()-1)%1000==0:   #减一防止一开始就产生
+            print("二次生产")
+            for i in range(100):
+                agent_sprite.add(V(Soul(range(16),range(5),None),env,random.randint(0,WIDTH-12)+5,random.randint(0,HIGHT-12)+5))
         pygame.display.update()
         print(clock.get_fps(),"nums",len(groups[0]))
-        if len(groups[0])<=0:
-            pygame.event.post(pygame.event.Event(pygame.QUIT))
+        if len(groups[0])<=0:   
+            print("热重启")             
+            light.update()
+            for i in range(100):
+                agent_sprite.add(V(Soul(range(16),range(5),None),env,random.randint(0,WIDTH-12)+5,random.randint(0,HIGHT-12)+5))
+            #pygame.event.post(pygame.event.Event(pygame.QUIT))
         
 
 
