@@ -53,7 +53,7 @@ class Light(Mana):
 
     def update(self):
         print("light has updated")
-        self.env=np.random.random((self.width,self.hight))*0.1+self.bias*0.1+self.glass*0.8
+        self.env=np.random.random((self.width,self.hight))*0.1+self.bias*0.1+self.glass*0.82
         #self.env=(np.tanh(self.env)+1)/2
         #self.env=np.tanh(np.random.random((self.width,self.hight))+1)/2
     def get(self,x,y):
