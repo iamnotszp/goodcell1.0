@@ -8,6 +8,8 @@ from pygame.sprite import Sprite
 from soul import Soul
 from env import Light,Positon
 
+#TODO：完成所有注释，删除所有无用代码，以及删去不用的import和其他todo
+
 class Object(Sprite):
     def __init__(self,rect: Rect,gene:np.int64) -> None:
         self.rect=rect
@@ -60,6 +62,7 @@ class V(pygame.sprite.Sprite):
         self.observe_space=range(16)#观测空间
         self.speed=speed            #移动速度
         self.born_energe=6000       #判断什么时候生育
+        self.born_min_energe=3000   #目前没用处，用于born中防止意外bug,虽然可能造成bug就是了#TODO：将oject.born_min_energe在object.born()用于实处
         self.max_age=15000          #最大寿命
         self.view_distance=2        #与神经网络的大小有关，目前无法改动
         self.energe=energe          #初始能量
@@ -117,10 +120,10 @@ class V(pygame.sprite.Sprite):
         obs=np.array(light,dtype=np.float16)
         act=self.soul.think(obs)
         return act
-        values=np.random.random(5)
-        values=values+self.move_bias*6
-        act=self.action_space[np.argmax(values)]
-        return act
+        # values=np.random.random(5)
+        # values=values+self.move_bias*6
+        # act=self.action_space[np.argmax(values)]
+        # return act
 
     #执行行动#TODO：改为私有函数
     def act(self):
