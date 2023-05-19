@@ -26,11 +26,13 @@ def main():
     win.fill((255,255,255))
     pygame.display.update()
     #pygame.time.set_timer(LIGHTUPDATA,5000)
-    for i in range(1000):
+    for i in range(100):
         agent_sprite.add(V(Soul(range(16),range(5),None),env,random.randint(0,WIDTH-12)+5,random.randint(0,HIGHT-12)+5))
         #agent_sprite.add(V(Soul(range(16),range(5),None),env,WIDTH//2,HIGHT//2))
     groups=[agent_sprite]
+    step=0
     while True:
+        step+=1
         clock.tick(144)
         event=pygame.event.get()
         for e in event:
@@ -59,15 +61,15 @@ def main():
         for group in groups:
             group.update()
             group.draw(win)
-        if clock.get_time()%50==0:
+        if step%49==0:
             print("更新光照")
             light.update()
-        if (clock.get_time()-1)%1000==0:   #减一防止一开始就产生
+        if (step-1)%5000==0:   #减一防止一开始就产生
             print("二次生产")
             for i in range(100):
                 agent_sprite.add(V(Soul(range(16),range(5),None),env,random.randint(0,WIDTH-12)+5,random.randint(0,HIGHT-12)+5))
         pygame.display.update()
-        print(clock.get_time(),":",clock.get_fps(),"nums",len(groups[0]),"光照平均值：",light.get_all().mean())
+        print(f"steps:{step} time:{clock.get_time()} fps:{clock.get_fps()} numbers:{len(groups[0])} 光照均值:{light.mean()}")
         if len(groups[0])<=0:   
             print("热重启")             
             light.update()
