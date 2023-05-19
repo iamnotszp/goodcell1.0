@@ -35,7 +35,8 @@ class Light(Mana):
         self.hight=hight
         self.bias=self.generetor()
         y=np.linspace(np.linspace(0,0.5,self.hight),np.linspace(0.5,1,self.hight),self.width)
-        self.glass=np.sin(y*np.pi)+np.sin(y[::-1][::]*np.pi)/2  #范围是[0,1]
+        self.glass=np.sin(y*np.pi)+np.sin(y[::-1][::]*np.pi)  #范围是[1,2]，平均值非1.5
+        self.glass=self.glass/self.glass.mean()/2               #归一化使的平均值为0.5
         self.update()
 
     def generetor(self):

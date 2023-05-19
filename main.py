@@ -67,7 +67,7 @@ def main():
             for i in range(100):
                 agent_sprite.add(V(Soul(range(16),range(5),None),env,random.randint(0,WIDTH-12)+5,random.randint(0,HIGHT-12)+5))
         pygame.display.update()
-        print(clock.get_fps(),"nums",len(groups[0]))
+        print(clock.get_time(),":",clock.get_fps(),"nums",len(groups[0]),"光照平均值：",light.get_all().mean())
         if len(groups[0])<=0:   
             print("热重启")             
             light.update()
