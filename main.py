@@ -6,8 +6,8 @@ import numpy as np
 from soul import Soul
 from env import Light,Positon
 from Object import V
-HIGHT=400
-WIDTH=400
+HIGHT=600
+WIDTH=600
 
 
 VDIE=2555
