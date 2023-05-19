@@ -47,6 +47,9 @@ class V(pygame.sprite.Sprite):
         self.observe_space=range(16)
         self.action=0
         self.speed=speed
+        self.born_energe=6000
+        self.max_age=15000
+        self.view_distance=2
         if not env.get("space"):
             raise Exception("错误，未设置space环境")
         self.env=env
@@ -101,7 +104,7 @@ class V(pygame.sprite.Sprite):
         light=light_env.get(self.rect.x,self.rect.y)
         # if light*120>100:
         #     return self.action_space[0]
-        light=light_env.get_view(self.rect.center,2)
+        light=light_env.get_view(self.rect.center,self.view_distance)
         light=light.reshape((16))
         obs=np.array(light,dtype=np.float16)
         act=self.soul.think(obs)
@@ -119,13 +122,13 @@ class V(pygame.sprite.Sprite):
         else:
             self.energe-=1
             if think==self.action_space[1]:
-                self.move(3,0)
+                self.move(self.speed,0)
             elif think==self.action_space[2]:
-                self.move(-3,0)
+                self.move(-self.speed,0)
             elif think==self.action_space[3]:
-                self.move(0,3)
+                self.move(0,self.speed)
             elif think==self.action_space[4]:
-                self.move(0,-3)
+                self.move(0,-self.speed)
             else:
                 print("不符合动作空间",think)
 
@@ -133,11 +136,11 @@ class V(pygame.sprite.Sprite):
         self.act()
         if self.width-self.rect.x<5 or self.hight-self.rect.y<5:
             self.die()
-        elif self.energe > 6000:
+        elif self.energe > self.born_energe:
             self.born()
         elif self.energe<500:
             self.die()
-        if self.age>=15000:
+        if self.age>=self.max_age:
             self.die()
         self.produce()
         self.energe-=100
