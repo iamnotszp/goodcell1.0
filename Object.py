@@ -81,7 +81,8 @@ class V(pygame.sprite.Sprite):
 
     def produce(self):
         light=self._getenv("light").env
-        self.energe+=light[self.rect.x][self.rect.y]*150
+        self.energe+=light[self.rect.x][self.rect.y]*200
+        light[self.rect.x][self.rect.y]-=0.01  #光照每50tick回复一次
     def move(self,dx,dy):
         self.rect.x+=dx
         if self.rect.x<3:
@@ -136,7 +137,7 @@ class V(pygame.sprite.Sprite):
             self.born()
         elif self.energe<500:
             self.die()
-        if self.age>=5000:
+        if self.age>=15000:
             self.die()
         self.produce()
         self.energe-=100

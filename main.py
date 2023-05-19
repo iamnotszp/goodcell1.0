@@ -25,9 +25,10 @@ def main():
     pygame.display.set_caption("模拟文明")
     win.fill((255,255,255))
     pygame.display.update()
-    pygame.time.set_timer(LIGHTUPDATA,1000)
+    #pygame.time.set_timer(LIGHTUPDATA,5000)
     for i in range(1000):
         agent_sprite.add(V(Soul(range(16),range(5),None),env,random.randint(0,WIDTH-12)+5,random.randint(0,HIGHT-12)+5))
+        #agent_sprite.add(V(Soul(range(16),range(5),None),env,WIDTH//2,HIGHT//2))
     groups=[agent_sprite]
     while True:
         clock.tick(144)
@@ -58,9 +59,9 @@ def main():
         for group in groups:
             group.update()
             group.draw(win)
-        # if clock.get_time()%5==0:
-        #     print("更新光照")
-        #     light.update()
+        if clock.get_time()%50==0:
+            print("更新光照")
+            light.update()
         pygame.display.update()
         print(clock.get_fps(),"nums",len(groups[0]))
         if len(groups[0])<=0:
