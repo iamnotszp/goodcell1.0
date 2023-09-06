@@ -27,7 +27,7 @@ def main():
     pygame.display.update()
     #pygame.time.set_timer(LIGHTUPDATA,5000)
     for i in range(100):
-        agent_sprite.add(V(Soul(range(16),range(5),None),env,random.randint(0,WIDTH-12)+5,random.randint(0,HIGHT-12)+5))
+        agent_sprite.add(V(Soul(range(17),range(5),None),env,random.randint(0,WIDTH-12)+5,random.randint(0,HIGHT-12)+5))
         #agent_sprite.add(V(Soul(range(16),range(5),None),env,WIDTH//2,HIGHT//2))
     groups=[agent_sprite]
     step=0
@@ -52,29 +52,29 @@ def main():
 
         # win.fill((255,255,255))
         win.blit(pygame.surfarray.make_surface(light.get_all()),(0,0))
-        current=pygame.sprite.GroupSingle()
-        for i in groups[0]:
-            current.add(i)
-            c=pygame.sprite.groupcollide(current,groups[0],False,False)
-            if len(c)>1:
-                i.kill()
+        # current=pygame.sprite.GroupSingle()
+        # # for i in groups[0]:
+        # #     current.add(i)
+        # #     c=pygame.sprite.groupcollide(current,groups[0],False,False)
+        # #     if len(c)>1:
+        # #         i.kill()
         for group in groups:
             group.update()
             group.draw(win)
-        if step%49==0:
+        if step%399==0:
             print("更新光照")
             light.update()
         if (step-1)%5000==0:   #减一防止一开始就产生
             print("二次生产")
             for i in range(100):
-                agent_sprite.add(V(Soul(range(16),range(5),None),env,random.randint(0,WIDTH-12)+5,random.randint(0,HIGHT-12)+5))
+                agent_sprite.add(V(Soul(range(17),range(5),None),env,random.randint(0,WIDTH-12)+5,random.randint(0,HIGHT-12)+5))
         pygame.display.update()
         print(f"steps:{step} time:{clock.get_time()} fps:{clock.get_fps()} numbers:{len(groups[0])} 光照均值:{light.mean()}")
         if len(groups[0])<=0:   
             print("热重启")             
             light.update()
             for i in range(100):
-                agent_sprite.add(V(Soul(range(16),range(5),None),env,random.randint(0,WIDTH-12)+5,random.randint(0,HIGHT-12)+5))
+                agent_sprite.add(V(Soul(range(17),range(5),None),env,random.randint(0,WIDTH-12)+5,random.randint(0,HIGHT-12)+5))
             #pygame.event.post(pygame.event.Event(pygame.QUIT))
         
 

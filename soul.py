@@ -11,8 +11,8 @@ class Soul:
             self.model=model
         else:
             self.model = nn.Sequential(
-            nn.Linear(len(self.observation_space), 24),
-            nn.ReLU(),
+            nn.Linear(len(self.observation_space),24),
+            nn.Sigmoid(),
             nn.Linear(24, 24),
             nn.ReLU(),
             nn.Linear(24,len(action_space))

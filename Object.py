@@ -40,7 +40,6 @@ class V(pygame.sprite.Sprite):
         V.i=V.i+1
         return V.i
 
-
     def __init__(self,soul:Soul,env,x=0,y=0,energe=0,speed=3) -> None:
         super().__init__()
         #self.image=pygame.image.load(face)
@@ -55,13 +54,14 @@ class V(pygame.sprite.Sprite):
         self.constant_waste=100     #固定消耗（修正变量：防止摆烂，加速淘汰）
         self.light_waste=0.01       #每秒使得所在处（space(x,y))的光能减少多少）（修正变量：实现种间竞争）
         self.dead_energe=500        #小于多少能量下会死亡
+        self.time=0
         #可遗传量
         self.rect=pygame.rect.Rect(x,y,2,2)                         #自身的位置，之所以不放在env中主要是为了方便，#TODO：未来可能会放到object.state中
         self.image=V.image          #自己的图片，用于可视化  #TODO：将可视化与模拟分离
         self.action_space=range(5)  #动作空间
-        self.observe_space=range(16)#观测空间
+        self.observe_space=range(17)#观测空间
         self.speed=speed            #移动速度
-        self.born_energe=6000       #判断什么时候生育
+        self.born_energe=12000       #判断什么时候生育
         self.born_min_energe=3000   #目前没用处，用于born中防止意外bug,虽然可能造成bug就是了#TODO：将oject.born_min_energe在object.born()用于实处
         self.max_age=15000          #最大寿命
         self.view_distance=2        #与神经网络的大小有关，目前无法改动
@@ -117,8 +117,10 @@ class V(pygame.sprite.Sprite):
         #     return self.action_space[0]
         light=light_env.get_view(self.rect.center,self.view_distance)
         light=light.reshape((16))
-        obs=np.array(light,dtype=np.float16)
-        act=self.soul.think(obs)
+        state=np.ones((17))
+        state[1:]=light
+        state[0]=np.cos(self.time)
+        act=self.soul.think(state)
         return act
         # values=np.random.random(5)
         # values=values+self.move_bias*6
